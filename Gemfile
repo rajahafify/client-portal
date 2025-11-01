@@ -22,3 +22,5 @@ group :development do
   gem "spring"
   gem "listen", "~> 3.3"
 end
+
+gem "rspec-rails", "~> 8.0", groups: [:development, :test]
