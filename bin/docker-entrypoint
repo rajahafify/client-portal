@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -e
+
+bundle check || bundle install
+
+if [ -f db/schema.rb ]; then
+  bin/rails db:prepare
+fi
+
+exec "$@"

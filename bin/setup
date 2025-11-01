@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "fileutils"
+
+APP_ROOT = File.expand_path("..", __dir__)
+
+FileUtils.chdir APP_ROOT do
+  system("bundle install") || abort("Running bundle install failed")
+  system({ "RAILS_ENV" => "development" }, "bin/rails db:prepare") || abort("Database setup failed")
+end

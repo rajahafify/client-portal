@@ -1,0 +1,43 @@
+<div class="flex flex-col items-center text-center space-y-8">
+  <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#615bff] to-[#3d32ff] shadow-lg shadow-[#262263]/40">
+    <svg class="h-8 w-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M5 12c2.5-.8 4.5-2.8 7-6 2.5 3.2 4.5 5.2 7 6-2.5.8-4.5 2.8-7 6-2.5-3.2-4.5-5.2-7-6Z" />
+    </svg>
+  </div>
+
+  <div>
+    <h1 class="text-2xl font-semibold text-slate-900">Sign in to your account</h1>
+  </div>
+
+  <%= form_with url: session_path, method: :post, local: true, class: "w-full space-y-6 text-left" do |form| %>
+    <div class="space-y-2">
+      <%= form.label :email, "Email address", class: "text-sm font-medium text-slate-700" %>
+      <%= form.email_field :email,
+            autofocus: true,
+            required: true,
+            class: "w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-[#594cff] focus:ring-2 focus:ring-[#594cff]/30",
+            placeholder: "you@company.com" %>
+    </div>
+
+    <div class="space-y-2">
+      <div class="flex items-center justify-between">
+        <%= form.label :password, "Password", class: "text-sm font-medium text-slate-700" %>
+        <%= link_to "Forgot password?", "#", class: "text-sm font-semibold text-[#594cff] hover:text-[#463bff]" %>
+      </div>
+      <%= form.password_field :password,
+            required: true,
+            class: "w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-[#594cff] focus:ring-2 focus:ring-[#594cff]/30",
+            placeholder: "••••••••" %>
+    </div>
+
+    <div>
+      <%= form.submit "Sign in",
+            class: "w-full rounded-xl bg-[#594cff] px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-[#221bff]/30 transition hover:bg-[#463bff] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#594cff]/50" %>
+    </div>
+  <% end %>
+
+  <p class="text-sm text-slate-500">
+    Not a member?
+    <%= link_to "Start a 14 day free trial", "#", class: "font-semibold text-[#594cff] hover:text-[#463bff]" %>
+  </p>
+</div>
