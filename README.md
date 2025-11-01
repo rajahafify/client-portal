@@ -23,7 +23,7 @@ A Rails 8.1.1 application that supports three user roles (superadmin, admin, cli
 
 ### Native setup
 
-1. Install Ruby 3.3 and Bundler.
+1. Install Ruby 3.3.1 (matching `.ruby-version`) and Bundler 2.7.2 (`gem install bundler -v 2.7.2`).
 2. Install dependencies:
    ```sh
    bundle install
@@ -40,6 +40,14 @@ A Rails 8.1.1 application that supports three user roles (superadmin, admin, cli
 ### Styling
 
 The UI is styled with Tailwind CSS loaded from the official CDN (`https://cdn.tailwindcss.com`). Update `app/views/layouts/application.html.erb` if you want to extend the Tailwind configuration or swap in a compiled build.
+
+### Running tests
+
+Execute the RSpec suite locally with:
+
+```sh
+bundle exec rspec
+```
 
 ### Default credentials
 
