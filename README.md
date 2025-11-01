@@ -50,3 +50,4 @@ The UI is styled with Tailwind CSS loaded from the official CDN (`https://cdn.ta
 | Client     | client@example.com      | password |
 
 Superadmins and admins are redirected to the client management dashboard. Clients are redirected to their dedicated client page.
+# client-portal
