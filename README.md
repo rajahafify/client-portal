@@ -2,6 +2,10 @@
 
 A Rails 8.1.1 application that supports three user roles (superadmin, admin, client). Superadmins and admins can manage client records while clients can view the page for their assigned organization.
 
+## Contributor Guide
+
+See [`AGENTS.md`](AGENTS.md) for repository guidelines covering structure, commands, style, testing, and pull request expectations.
+
 ## Running locally
 
 ### With Docker (recommended if Ruby is not installed)
