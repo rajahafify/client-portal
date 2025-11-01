@@ -29,9 +29,9 @@ class SessionsController < ApplicationController
   def redirect_post_login
     case current_user&.role
     when "superadmin", "admin"
-      redirect_to clients_path
+      redirect_to admin_dashboard_path
     when "client"
-      redirect_to my_client_path
+      redirect_to client_dashboard_path
     else
       session.delete(:user_id)
       redirect_to login_path, alert: "Unable to sign you in."

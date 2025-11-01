@@ -53,9 +53,9 @@
 
               <nav class="space-y-2 text-sm text-slate-600">
                 <% primary_nav = [
-                  { label: "Dashboard", path: clients_path, icon: "M3 7h14M3 12h14M3 17h14" },
-                  { label: "My Client", path: my_client_path, icon: "M4 6h16M4 12h10M4 18h7" },
-                  { label: "Documents", path: "#documents", icon: "M8 6h8M8 10h8m-8 4h5" }
+                  { label: "Dashboard", path: admin_dashboard_path, icon: "M3 7h14M3 12h14M3 17h14" },
+                  { label: "Client Directory", path: admin_clients_path, icon: "M4 6h16M4 12h10M4 18h7" },
+                  { label: "My Client", path: client_dashboard_path, icon: "M8 6h8M8 10h8m-8 4h5" }
                 ] %>
                 <% primary_nav.each do |item| %>
                   <% active = request.fullpath == item[:path] || request.fullpath.start_with?(item[:path]) %>

@@ -1,0 +1,51 @@
+<%= form_with model: [:admin, client], local: true, class: "space-y-6" do |form| %>
+  <% if client.errors.any? %>
+    <div class="border border-red-200 bg-red-50 p-4 text-xs text-red-700">
+      <h2 class="mb-2 font-semibold">
+        <%= pluralize(client.errors.count, "error") %> prohibited this client from being saved:
+      </h2>
+      <ul class="list-disc space-y-1 pl-5 marker:text-red-400">
+        <% client.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :company_name, class: "block text-[0.7rem] font-semibold uppercase tracking-[0.25em] text-slate-500/90" %>
+    <%= form.text_field :company_name,
+          required: true,
+          class: "mt-2 w-full border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-400/40" %>
+  </div>
+
+  <div class="grid gap-6 md:grid-cols-2">
+    <div>
+      <%= form.label :contact_no, class: "block text-[0.7rem] font-semibold uppercase tracking-[0.25em] text-slate-500/90" %>
+      <%= form.text_field :contact_no,
+            required: true,
+            class: "mt-2 w-full border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-400/40" %>
+    </div>
+
+    <div>
+      <%= form.label :contact_email, class: "block text-[0.7rem] font-semibold uppercase tracking-[0.25em] text-slate-500/90" %>
+      <%= form.email_field :contact_email,
+            required: true,
+            class: "mt-2 w-full border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-400/40" %>
+    </div>
+  </div>
+
+  <div>
+    <%= form.label :user_id, "Assigned Client User", class: "block text-[0.7rem] font-semibold uppercase tracking-[0.25em] text-slate-500/90" %>
+    <%= form.collection_select :user_id,
+          User.client.order(:email),
+          :id,
+          :email,
+          { include_blank: "Unassigned" },
+          { class: "mt-2 w-full border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-400/40" } %>
+  </div>
+
+  <div class="flex justify-end">
+    <%= form.submit class: "inline-flex items-center border border-brand-300 bg-brand-500 px-4 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-white transition hover:bg-brand-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400/60 shadow-sm shadow-brand-900/10" %>
+  </div>
+<% end %>
