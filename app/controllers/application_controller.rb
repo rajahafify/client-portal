@@ -28,6 +28,6 @@ class ApplicationController < ActionController::Base
   def require_admin!
     return if current_user&.admin? || current_user&.superadmin?
 
-    redirect_to my_client_path, alert: "You are not authorized to access that page."
+    redirect_to client_dashboard_path, alert: "You are not authorized to access that page."
   end
 end

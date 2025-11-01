@@ -7,7 +7,12 @@ Rails.application.routes.draw do
   get "login", to: "sessions#new"
   delete "logout", to: "sessions#destroy"
 
-  resources :clients
+  namespace :admin do
+    get "dashboard", to: "dashboard#show"
+    resources :clients
+  end
 
-  get "my_client", to: "clients#show_current", as: :my_client
+  namespace :client, module: :client_portal do
+    get "dashboard", to: "dashboard#show"
+  end
 end

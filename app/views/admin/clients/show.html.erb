@@ -1,0 +1,99 @@
+<section class="border-b border-slate-100 bg-white">
+  <div class="mx-auto max-w-7xl flex flex-col gap-4 px-6 pb-4 pt-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+    <div>
+      <p class="text-[0.65rem] uppercase tracking-[0.35em] text-slate-500/75">Active client</p>
+      <h1 class="mt-1 text-3xl font-semibold text-slate-900"><%= @client.company_name %></h1>
+      <p class="mt-1 text-xs uppercase tracking-[0.3em] text-slate-500/80">Key information and ownership details for this relationship.</p>
+    </div>
+
+    <% if current_user.superadmin? || current_user.admin? %>
+      <%= link_to "Edit Client Profile",
+            edit_admin_client_path(@client),
+            class: "inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-500 to-brand-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:from-brand-600 hover:to-brand-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-600" %>
+    <% end %>
+  </div>
+
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <% tabs = [
+      ["Overview", "#overview"],
+      ["Contacts", "#contacts"],
+      ["Activity", "#activity"],
+      ["Documents", "#documents"]
+    ] %>
+    <nav class="flex h-12 items-center gap-8 border-b border-slate-200/70 text-sm">
+      <% tabs.each_with_index do |(label, anchor), idx| %>
+        <a href="<%= anchor %>" class="inline-flex h-full items-center border-b-2 px-1 text-sm transition <%= idx.zero? ? 'border-slate-900 font-medium text-slate-900' : 'border-transparent text-slate-600 hover:text-slate-900' %>"><%= label %></a>
+      <% end %>
+    </nav>
+  </div>
+  <div class="mx-auto max-w-7xl space-y-6 px-6 pb-8 pt-6 lg:px-8">
+    <section id="overview" class="grid gap-4 md:grid-cols-2">
+      <div class="relative overflow-hidden rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+        <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-indigo-50/70 to-transparent"></div>
+        <div class="relative">
+          <p class="text-sm text-slate-500">Contact number</p>
+          <p class="mt-2 text-xl font-semibold text-slate-900"><%= @client.contact_no %></p>
+        </div>
+      </div>
+      <div class="relative overflow-hidden rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+        <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-indigo-50/70 to-transparent"></div>
+        <div class="relative">
+          <p class="text-sm text-slate-500">Primary email</p>
+          <p class="mt-2 text-xl font-semibold text-slate-900"><%= @client.contact_email %></p>
+        </div>
+      </div>
+      <div class="relative overflow-hidden rounded-xl border border-slate-200 bg-white p-6 shadow-sm md:col-span-2">
+        <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-100/80 to-transparent"></div>
+        <div class="relative">
+          <p class="text-sm text-slate-500">Assigned owner</p>
+          <p class="mt-2 text-sm text-slate-600">
+            <% if @client.user %>
+              <span class="font-semibold text-slate-900"><%= @client.user.email %></span>
+              <span class="ml-2 text-xs uppercase tracking-[0.3em] text-slate-500/75"><%= @client.user.role.humanize %></span>
+            <% else %>
+              <span class="text-xs uppercase tracking-[0.3em] text-amber-600">No owner assigned</span>
+            <% end %>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacts" class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+      <div class="flex items-center justify-between">
+        <p class="text-sm font-semibold text-slate-700">Team contacts</p>
+        <button type="button" class="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-sm text-slate-600 hover:bg-slate-50">Add contact</button>
+      </div>
+      <p class="mt-2 text-sm text-slate-500">Invite teammates to collaborate on this account.</p>
+    </section>
+
+    <section id="activity" class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+      <p class="text-sm font-semibold text-slate-700">Recent activity</p>
+      <p class="mt-2 text-sm text-slate-500">No tracked activity yet.</p>
+    </section>
+
+    <section id="documents" class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+      <div class="flex items-center justify-between">
+        <p class="text-sm font-semibold text-slate-700">Documents</p>
+        <button type="button" class="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-sm text-slate-600 hover:bg-slate-50">Upload file</button>
+      </div>
+      <p class="mt-2 text-sm text-slate-500">Store agreements and supporting materials here.</p>
+    </section>
+
+    <section class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+      <p class="text-sm text-slate-500">Last updated</p>
+      <p class="mt-2 text-xs font-medium text-slate-600"><%= @client.updated_at.strftime("%B %d, %Y at %I:%M %p") %></p>
+      <p class="mt-4 text-sm text-slate-500">Created</p>
+      <p class="mt-2 text-xs font-medium text-slate-600"><%= @client.created_at.strftime("%B %d, %Y") %></p>
+    </section>
+  </div>
+</section>
+
+<section class="bg-white">
+  <div class="mx-auto max-w-7xl px-6 py-6 text-[0.65rem] font-semibold uppercase tracking-[0.3em] text-slate-500/80 lg:px-8">
+    <% if current_user.superadmin? || current_user.admin? %>
+      <%= link_to "← Back to directory", admin_clients_path, class: "inline-block hover:text-blue-700" %>
+    <% else %>
+      <%= link_to "← Back to my dashboard", client_dashboard_path, class: "inline-block hover:text-blue-700" %>
+    <% end %>
+  </div>
+</section>

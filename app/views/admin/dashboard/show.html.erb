@@ -1,0 +1,34 @@
+<section class="border-b border-slate-100 bg-white">
+  <div class="mx-auto max-w-7xl flex flex-col gap-4 px-6 pb-6 pt-8 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+    <div>
+      <p class="text-[0.65rem] uppercase tracking-[0.35em] text-slate-500/80">Admin overview</p>
+      <h1 class="text-3xl font-semibold text-slate-900">Operations command center</h1>
+      <p class="mt-1 text-xs uppercase tracking-[0.3em] text-slate-500/75">Monitor account health and keep the client roster current.</p>
+    </div>
+    <%= link_to "Manage clients",
+          admin_clients_path,
+          class: "inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-500 to-brand-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:from-brand-600 hover:to-brand-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-600" %>
+  </div>
+</section>
+
+<section class="bg-white">
+  <div class="mx-auto max-w-7xl grid gap-4 px-6 pb-10 pt-6 sm:grid-cols-2 lg:grid-cols-4 lg:px-8">
+    <% cards = [
+      ["Total organizations", Client.count, "Across every market segment", "from-indigo-50/70"],
+      ["Assigned accounts", Client.where.not(user_id: nil).count, "Paired with an owner", "from-emerald-50/70"],
+      ["Unassigned", Client.where(user_id: nil).count, "Needs attention", "from-rose-50/70"],
+      ["Active client users", User.with_role(:client).count, "Licensed seats in use", "from-amber-50/70"]
+    ] %>
+
+    <% cards.each do |title, value, caption, gradient| %>
+      <div class="relative overflow-hidden rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+        <div class="pointer-events-none absolute inset-0 bg-gradient-to-t <%= gradient %> to-transparent"></div>
+        <div class="relative">
+          <p class="text-sm text-slate-500"><%= title %></p>
+          <p class="mt-1 text-3xl font-semibold tabular-nums text-slate-900"><%= value %></p>
+          <p class="mt-1 text-xs text-slate-500"><%= caption %></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</section>
